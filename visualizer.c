@@ -52,6 +52,7 @@ void visualize(void)
 {
     SetRandomSeed((unsigned int)time(NULL));
     initArray(NELEMS);
+    doSort(bubbleSort, arr, NELEMS);
     initRectangleData();
     initBarData();
     InitWindow(WIDTH, HEIGHT, "mhviz - A Sorting Algorithm Visualizer");

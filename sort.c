@@ -34,3 +34,8 @@ void selectionSort(int arr[], int n)
         swap(&arr[minIdx], &arr[i]);
     }
 }
+
+void doSort(void func(int *, int), int arr[], int n)
+{
+    func(arr, n);
+}

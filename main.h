@@ -37,4 +37,5 @@ void bubbleSort(int arr[], int n);
 void selectionSort(int arr[], int n);
 
 // Functions
+void doSort(void func(int *, int), int arr[], int n);
 void visualize(void);
