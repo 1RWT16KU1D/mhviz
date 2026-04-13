@@ -1,12 +1,13 @@
 #include "main.h"
 
 static int *arr;
+Bar bars[NELEMS];
 
 static int *setArray(int arr[], int n)
 {
     arr = (int *)malloc(n * sizeof(int));
     for (int i = 0; i < n; i++)
-        arr[i] = rand() % 40;
+        arr[i] = GetRandomValue(1, MAX_VALUE);
     return arr;
 }
 
@@ -20,12 +21,13 @@ void drawBars(int n)
 {
     for (int i = 0; i < n; i++)
     {
-        drawBar(50 * i, HEIGHT - (20 * arr[i]), 50, 20 * arr[i]);
+        drawBar(BAR_WIDTH * i, HEIGHT - (20 * arr[i]), BAR_WIDTH, 20 * arr[i]);
     }
 }
 
 void visualize(void)
 {
+    SetRandomSeed((unsigned int)time(NULL));
     arr = setArray(arr, NELEMS);
     InitWindow(WIDTH, HEIGHT, "mhviz - A Sorting Algorithm Visualizer");
     SetTargetFPS(60);
