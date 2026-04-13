@@ -6,12 +6,11 @@ Rectangle rectangles[NELEMS];
 Bar bars[NELEMS];
 
 #pragma region Data Initialization
-static int *initArray(int arr[], int n)
+static void initArray(int n)
 {
     arr = (int *)malloc(n * sizeof(int));
     for (int i = 0; i < n; i++)
         arr[i] = GetRandomValue(1, MAX_VALUE);
-    return arr;
 }
 
 static void initRectangleData(void)
@@ -52,7 +51,7 @@ void drawBars(int n)
 void visualize(void)
 {
     SetRandomSeed((unsigned int)time(NULL));
-    arr = initArray(arr, NELEMS);
+    initArray(NELEMS);
     initRectangleData();
     initBarData();
     InitWindow(WIDTH, HEIGHT, "mhviz - A Sorting Algorithm Visualizer");

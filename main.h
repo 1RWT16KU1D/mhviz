@@ -15,6 +15,7 @@
 #define HEIGHT ((20 * MAX_VALUE) + 250)
 #define INITIAL_WIDTH 2500
 
+// Because the extra space was annoying me
 #if ((INITIAL_WIDTH % NELEMS) != 0)
 #define WIDTH (INITIAL_WIDTH - (INITIAL_WIDTH % NELEMS))
 #else
@@ -30,6 +31,10 @@ typedef struct
     Color color;
     bool active;
 } Bar;
+
+// Sorting Algorithms
+void bubbleSort(int arr[], int n);
+void selectionSort(int arr[], int n);
 
 // Functions
 void visualize(void);
