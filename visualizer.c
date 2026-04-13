@@ -66,5 +66,6 @@ void visualize(void)
         EndDrawing();
     }
     CloseWindow();
+    free(arr);
 }
 #pragma endregion

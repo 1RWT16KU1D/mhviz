@@ -9,7 +9,7 @@
 #define TRUE true
 #define FALSE false
 
-#define NELEMS 67
+#define NELEMS 65
 #define MAX_VALUE 50
 
 #define HEIGHT ((20 * MAX_VALUE) + 250)
