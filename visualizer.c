@@ -1,12 +1,11 @@
 #include "main.h"
-#include <stdio.h>
 
 // Global initializations
 static int *nums;
 Rectangle rectangles[NELEMS];
 Bar bars[NELEMS];
 bool sorted = FALSE;
-int swappedIndices[2];
+int highlightedIndices[2];
 
 #pragma region Data Initialization
 static void initArray(int n)
@@ -47,10 +46,10 @@ static void updateBarData(Bar bars[], int arr[])
         bars[i].color = WHITE;
     }
 
-    if (swappedIndices[0] >= 0 && swappedIndices[0] < NELEMS)
-        bars[swappedIndices[0]].color = YELLOW;
-    if (swappedIndices[1] >= 0 && swappedIndices[1] < NELEMS)
-        bars[swappedIndices[1]].color = RED;
+    if (highlightedIndices[0] >= 0 && highlightedIndices[0] < NELEMS)
+        bars[highlightedIndices[0]].color = RED;
+    if (highlightedIndices[1] >= 0 && highlightedIndices[1] < NELEMS)
+        bars[highlightedIndices[1]].color = YELLOW;
 }
 #pragma endregion
 
@@ -73,15 +72,15 @@ void visualize(void)
 
     int i = 0, j = 0;
     int minIdx = 0;
-    swappedIndices[0] = -1;
-    swappedIndices[1] = -1;
+    highlightedIndices[0] = -1;
+    highlightedIndices[1] = -1;
     initArray(NELEMS);
 
     initRectangleData();
     initBarData();
 
     InitWindow(WIDTH, HEIGHT, "mhviz - A Sorting Algorithm Visualizer");
-    SetTargetFPS(120);
+    SetTargetFPS(15);
 
     while (!WindowShouldClose())
     {   
@@ -89,8 +88,8 @@ void visualize(void)
             ClearBackground(BLACK);
             if (!isSorted(nums, NELEMS))
             {
-                //bubbleStepSort(&i, &j, swappedIndices, nums, NELEMS);
-                selectionStepSort(&i, &j, swappedIndices, &minIdx, nums, NELEMS);
+                //bubbleStepSort(&i, &j, highlightedIndices, nums, NELEMS);
+                selectionStepSort(&i, &j, highlightedIndices, &minIdx, nums, NELEMS);
                 updateBarData(bars, nums);
             }
             else
@@ -103,9 +102,6 @@ void visualize(void)
     }
     CloseWindow();
 
-    for (i = 0; i < NELEMS; i++)
-        printf("%d ", nums[i]);
-    printf("\n");
     free(nums);
 }
 #pragma endregion

@@ -17,7 +17,8 @@ bool isSorted(int arr[], int n)
     return TRUE;
 }
 
-void bubbleStepSort(int *i, int *j, int swappedIndices[], int arr[], int n)
+// Can swap every iteration
+void bubbleStepSort(int *i, int *j, int highlightedIndices[], int arr[], int n)
 {   
     if (*i >= n - 1)
         return;
@@ -29,8 +30,8 @@ void bubbleStepSort(int *i, int *j, int swappedIndices[], int arr[], int n)
         return;
     }
 
-    swappedIndices[0] = *j;
-    swappedIndices[1] = *j + 1;
+    highlightedIndices[0] = *j;
+    highlightedIndices[1] = *j + 1;
 
     if (arr[*j] > arr[*j + 1])
         swap(&arr[*j], &arr[*j + 1]);
@@ -38,25 +39,32 @@ void bubbleStepSort(int *i, int *j, int swappedIndices[], int arr[], int n)
     (*j)++;
 }
 
-void selectionStepSort(int *i, int *j, int swappedIndices[], int *minIdx, int arr[], int n)
+// Swap only after reaching end of array
+void selectionStepSort(int *i, int *j, int highlightedIndices[], int *minIdx, int arr[], int n)
 {
     if (*i >= n - 1)
         return;
 
-    *minIdx = *i;
+    if (*j <= *i)
+    {
+        *minIdx = *i;
+        *j = *i + 1;
+    }
 
+    // After reaching the end, swap and reset for next outer loop
     if (*j >= n)
     {
+        swap(&arr[*minIdx], &arr[*i]);
         (*i)++;
+        *minIdx = *i;
         *j = *i + 1;
         return;
     }
 
-    swappedIndices[0] = *i;
-    swappedIndices[1] = *minIdx;
     if (arr[*j] < arr[*minIdx])
         *minIdx = *j;
-    
-    swap(&arr[*minIdx], &arr[*i]);
+
+    highlightedIndices[0] = *j;
+    highlightedIndices[1] = *minIdx;
     (*j)++;
 }
