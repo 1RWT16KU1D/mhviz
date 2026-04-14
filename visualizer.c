@@ -72,6 +72,7 @@ void visualize(void)
     SetRandomSeed((unsigned int)time(NULL));
 
     int i = 0, j = 0;
+    int minIdx = 0;
     swappedIndices[0] = -1;
     swappedIndices[1] = -1;
     initArray(NELEMS);
@@ -88,7 +89,8 @@ void visualize(void)
             ClearBackground(BLACK);
             if (!isSorted(nums, NELEMS))
             {
-                bubbleStepSort(&i, &j, swappedIndices, nums, NELEMS);
+                //bubbleStepSort(&i, &j, swappedIndices, nums, NELEMS);
+                selectionStepSort(&i, &j, swappedIndices, &minIdx, nums, NELEMS);
                 updateBarData(bars, nums);
             }
             else

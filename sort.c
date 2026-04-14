@@ -38,18 +38,25 @@ void bubbleStepSort(int *i, int *j, int swappedIndices[], int arr[], int n)
     (*j)++;
 }
 
-void selectionSort(int arr[], int n)
+void selectionStepSort(int *i, int *j, int swappedIndices[], int *minIdx, int arr[], int n)
 {
-    for (int i = 0; i < n-1; i++)
+    if (*i >= n - 1)
+        return;
+
+    *minIdx = *i;
+
+    if (*j >= n)
     {
-        int minIdx = i;
-
-        for (int j = i + 1; j < n; j++)
-        {
-            if (arr[j] < arr[minIdx])
-                minIdx = j;
-        }
-
-        swap(&arr[minIdx], &arr[i]);
+        (*i)++;
+        *j = *i + 1;
+        return;
     }
+
+    swappedIndices[0] = *i;
+    swappedIndices[1] = *minIdx;
+    if (arr[*j] < arr[*minIdx])
+        *minIdx = *j;
+    
+    swap(&arr[*minIdx], &arr[*i]);
+    (*j)++;
 }

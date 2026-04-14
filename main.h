@@ -36,7 +36,7 @@ typedef struct
 void swap(int *a, int *b);
 bool isSorted(int arr[], int n);
 void bubbleStepSort(int *i, int *j, int swappedIndices[], int arr[], int n);
-void selectionSort(int arr[], int n);
+void selectionStepSort(int *i, int *j, int swappedIndices[], int *minIdx, int arr[], int n);
 
 // Functions
 void visualize(void);
