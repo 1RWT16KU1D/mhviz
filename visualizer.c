@@ -41,7 +41,8 @@ static void updateBarData(Bar bars[], int arr[])
 {
     fSwap(&bars[swappedIndices[0]].rect.height, &bars[swappedIndices[1]].rect.height);
     fSwap(&bars[swappedIndices[0]].rect.x, &bars[swappedIndices[1]].rect.x);
-    bars[swappedIndices[0]].color = GREEN;
+    fSwap(&bars[swappedIndices[0]].rect.y, &bars[swappedIndices[1]].rect.y);
+    bars[swappedIndices[0]].color = YELLOW;
     bars[swappedIndices[1]].color = RED;
 }
 
@@ -71,7 +72,7 @@ void visualize(void)
     initBarData();
 
     InitWindow(WIDTH, HEIGHT, "mhviz - A Sorting Algorithm Visualizer");
-    SetTargetFPS(120);
+    SetTargetFPS(60);
 
     while (!WindowShouldClose())
     {   
@@ -80,6 +81,13 @@ void visualize(void)
             {
                 bubbleStepSort(&i, &j, swappedIndices, nums, NELEMS);
                 updateBarData(bars, nums);
+                ClearBackground(BLACK);
+                drawBars(NELEMS);
+            }
+            else
+            {
+                for (i = 0; i < NELEMS; i++)
+                    bars[i].color = GREEN;
                 ClearBackground(BLACK);
                 drawBars(NELEMS);
             }
