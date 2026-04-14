@@ -70,7 +70,7 @@ void visualize(void)
 {
     SetRandomSeed((unsigned int)time(NULL));
 
-    int i = 0, j = 0;
+    int i = 0, j = 0, k = 0;
     int minIdx = 0;
     highlightedIndices[0] = -1;
     highlightedIndices[1] = -1;
@@ -80,7 +80,7 @@ void visualize(void)
     initBarData();
 
     InitWindow(WIDTH, HEIGHT, "mhviz - A Sorting Algorithm Visualizer");
-    SetTargetFPS(15);
+    SetTargetFPS(NELEMS * 3);
 
     while (!WindowShouldClose())
     {   
@@ -94,8 +94,11 @@ void visualize(void)
             }
             else
             {
-                for (i = 0; i < NELEMS; i++)
-                    bars[i].color = GREEN;
+                if (k < NELEMS)
+                {
+                    bars[k].color = LIME;
+                    k++;
+                }
             }
             drawBars(NELEMS);
         EndDrawing();

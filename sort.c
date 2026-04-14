@@ -64,7 +64,7 @@ void selectionStepSort(int *i, int *j, int highlightedIndices[], int *minIdx, in
     if (arr[*j] < arr[*minIdx])
         *minIdx = *j;
 
-    highlightedIndices[0] = *j;
-    highlightedIndices[1] = *minIdx;
+    highlightedIndices[0] = *minIdx;
+    highlightedIndices[1] = *j;
     (*j)++;
 }
