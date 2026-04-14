@@ -1,26 +1,29 @@
 #include "main.h"
+#include <stdio.h>
 
 // Global initializations
-static int *arr;
+static int *nums;
 Rectangle rectangles[NELEMS];
 Bar bars[NELEMS];
+bool sorted = FALSE;
+int swappedIndices[2];
 
 #pragma region Data Initialization
 static void initArray(int n)
 {
-    arr = (int *)malloc(n * sizeof(int));
+    nums = (int *)malloc(n * sizeof(int));
     for (int i = 0; i < n; i++)
-        arr[i] = GetRandomValue(1, MAX_VALUE);
+        nums[i] = GetRandomValue(1, MAX_VALUE);
 }
 
 static void initRectangleData(void)
 {
     for (int i = 0; i < NELEMS; i++)
     {
-        rectangles[i].height = HEIGHT_FACTOR * arr[i];
+        rectangles[i].height = HEIGHT_FACTOR * nums[i];
         rectangles[i].width = BAR_WIDTH;
         rectangles[i].x = BAR_WIDTH * i;
-        rectangles[i].y = HEIGHT - (HEIGHT_FACTOR * arr[i]);
+        rectangles[i].y = HEIGHT - (HEIGHT_FACTOR * nums[i]);
     }
 }
 
@@ -33,6 +36,15 @@ static void initBarData(void)
         bars[i].active = TRUE;
     }
 }
+
+static void updateBarData(Bar bars[], int arr[])
+{
+    fSwap(&bars[swappedIndices[0]].rect.height, &bars[swappedIndices[1]].rect.height);
+    fSwap(&bars[swappedIndices[0]].rect.x, &bars[swappedIndices[1]].rect.x);
+    bars[swappedIndices[0]].color = GREEN;
+    bars[swappedIndices[1]].color = RED;
+}
+
 #pragma endregion
 
 #pragma region Drawing Logic
@@ -51,21 +63,33 @@ void drawBars(int n)
 void visualize(void)
 {
     SetRandomSeed((unsigned int)time(NULL));
+
+    int i = 0, j = 0;
     initArray(NELEMS);
-    doSort(bubbleSort, arr, NELEMS);
+
     initRectangleData();
     initBarData();
+
     InitWindow(WIDTH, HEIGHT, "mhviz - A Sorting Algorithm Visualizer");
-    SetTargetFPS(60);
+    SetTargetFPS(120);
+
     while (!WindowShouldClose())
-    {
+    {   
         BeginDrawing();
-        ClearBackground(BLACK);
-        drawBars(NELEMS);
-        DrawFPS(10, 10);
+            if (!isSorted(nums, NELEMS))
+            {
+                bubbleStepSort(&i, &j, swappedIndices, nums, NELEMS);
+                updateBarData(bars, nums);
+                ClearBackground(BLACK);
+                drawBars(NELEMS);
+            }
         EndDrawing();
     }
     CloseWindow();
-    free(arr);
+
+    for (i = 0; i < NELEMS; i++)
+        printf("%d ", nums[i]);
+    printf("\n");
+    free(nums);
 }
 #pragma endregion

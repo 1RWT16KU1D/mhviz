@@ -1,22 +1,54 @@
 #include "main.h"
 
-static inline void swap(int *a, int *b)
+inline void swap(int *a, int *b)
 {
     int temp = *a;
     *a = *b;
     *b = temp;
 }
 
-void bubbleSort(int arr[], int n)
+inline void fSwap(float *a, float *b)
 {
-    for (int i = 0; i < n-1; i++)
+    float temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+bool isSorted(int arr[], int n)
+{
+    for (int i = 0; i < n - 1; i++)
     {
-        for (int j = 0; j < n-i-1; j++)
-        {
-            if (arr[j] > arr[j+1])
-                swap(&arr[j], &arr[j+1]);
-        }
+        if (arr[i] > arr[i + 1])
+            return FALSE;
     }
+    return TRUE;
+}
+
+void bubbleStepSort(int *i, int *j, int swappedIndices[], int arr[], int n)
+{   
+    if (*i >= n - 1)
+        return;
+
+    if (*j >= n - *i - 1)
+    {
+        (*i)++;
+        *j = 0;
+        return;
+    }
+
+    bool swapped = FALSE;
+    if (arr[*j] > arr[*j + 1])
+    {
+        swapped = TRUE;
+        swap(&arr[*j], &arr[*j + 1]);
+    }
+
+    if (swapped)
+    {
+        swappedIndices[0] = *j;
+        swappedIndices[1] = *j + 1;
+    }
+    (*j)++;
 }
 
 void selectionSort(int arr[], int n)
@@ -33,9 +65,4 @@ void selectionSort(int arr[], int n)
 
         swap(&arr[minIdx], &arr[i]);
     }
-}
-
-void doSort(void func(int *, int), int arr[], int n)
-{
-    func(arr, n);
 }

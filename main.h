@@ -9,7 +9,7 @@
 #define TRUE true
 #define FALSE false
 
-#define NELEMS 65
+#define NELEMS 25
 #define MAX_VALUE 50
 
 #define HEIGHT ((20 * MAX_VALUE) + 250)
@@ -33,9 +33,11 @@ typedef struct
 } Bar;
 
 // Sorting Algorithms
-void bubbleSort(int arr[], int n);
+void swap(int *a, int *b);
+void fSwap(float *a, float *b);
+bool isSorted(int arr[], int n);
+void bubbleStepSort(int *i, int *j, int swappedIndices[], int arr[], int n);
 void selectionSort(int arr[], int n);
 
 // Functions
-void doSort(void func(int *, int), int arr[], int n);
 void visualize(void);
