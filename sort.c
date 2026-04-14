@@ -1,15 +1,8 @@
 #include "main.h"
 
-inline void swap(int *a, int *b)
+void swap(int *a, int *b)
 {
     int temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
-inline void fSwap(float *a, float *b)
-{
-    float temp = *a;
     *a = *b;
     *b = temp;
 }
@@ -36,18 +29,12 @@ void bubbleStepSort(int *i, int *j, int swappedIndices[], int arr[], int n)
         return;
     }
 
-    bool swapped = FALSE;
-    if (arr[*j] > arr[*j + 1])
-    {
-        swapped = TRUE;
-        swap(&arr[*j], &arr[*j + 1]);
-    }
+    swappedIndices[0] = *j;
+    swappedIndices[1] = *j + 1;
 
-    if (swapped)
-    {
-        swappedIndices[0] = *j;
-        swappedIndices[1] = *j + 1;
-    }
+    if (arr[*j] > arr[*j + 1])
+        swap(&arr[*j], &arr[*j + 1]);
+
     (*j)++;
 }
 

@@ -39,13 +39,19 @@ static void initBarData(void)
 
 static void updateBarData(Bar bars[], int arr[])
 {
-    fSwap(&bars[swappedIndices[0]].rect.height, &bars[swappedIndices[1]].rect.height);
-    fSwap(&bars[swappedIndices[0]].rect.x, &bars[swappedIndices[1]].rect.x);
-    fSwap(&bars[swappedIndices[0]].rect.y, &bars[swappedIndices[1]].rect.y);
-    bars[swappedIndices[0]].color = YELLOW;
-    bars[swappedIndices[1]].color = RED;
-}
+    for (int i = 0; i < NELEMS; i++)
+    {
+        bars[i].rect.height = HEIGHT_FACTOR * arr[i];
+        bars[i].rect.x = BAR_WIDTH * i;
+        bars[i].rect.y = HEIGHT - (HEIGHT_FACTOR * arr[i]);
+        bars[i].color = WHITE;
+    }
 
+    if (swappedIndices[0] >= 0 && swappedIndices[0] < NELEMS)
+        bars[swappedIndices[0]].color = YELLOW;
+    if (swappedIndices[1] >= 0 && swappedIndices[1] < NELEMS)
+        bars[swappedIndices[1]].color = RED;
+}
 #pragma endregion
 
 #pragma region Drawing Logic
@@ -66,31 +72,31 @@ void visualize(void)
     SetRandomSeed((unsigned int)time(NULL));
 
     int i = 0, j = 0;
+    swappedIndices[0] = -1;
+    swappedIndices[1] = -1;
     initArray(NELEMS);
 
     initRectangleData();
     initBarData();
 
     InitWindow(WIDTH, HEIGHT, "mhviz - A Sorting Algorithm Visualizer");
-    SetTargetFPS(60);
+    SetTargetFPS(120);
 
     while (!WindowShouldClose())
     {   
         BeginDrawing();
+            ClearBackground(BLACK);
             if (!isSorted(nums, NELEMS))
             {
                 bubbleStepSort(&i, &j, swappedIndices, nums, NELEMS);
                 updateBarData(bars, nums);
-                ClearBackground(BLACK);
-                drawBars(NELEMS);
             }
             else
             {
                 for (i = 0; i < NELEMS; i++)
                     bars[i].color = GREEN;
-                ClearBackground(BLACK);
-                drawBars(NELEMS);
             }
+            drawBars(NELEMS);
         EndDrawing();
     }
     CloseWindow();
