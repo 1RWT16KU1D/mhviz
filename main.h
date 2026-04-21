@@ -12,6 +12,10 @@
 #define NELEMS 75
 #define MAX_VALUE 50
 
+#define FRAME_RATE_SLOW (NELEMS * 5)
+#define FRAME_RATE_MEDIUM (NELEMS * 10)
+#define FRAME_RATE_FAST (NELEMS * 20)
+
 #define HEIGHT ((20 * MAX_VALUE) + 250)
 #define INITIAL_WIDTH 2500
 

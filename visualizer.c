@@ -80,7 +80,7 @@ void visualize(void)
     initBarData();
 
     InitWindow(WIDTH, HEIGHT, "mhviz - A Sorting Algorithm Visualizer");
-    SetTargetFPS(NELEMS * 3);
+    SetTargetFPS(FRAME_RATE_FAST);
 
     while (!WindowShouldClose())
     {   
